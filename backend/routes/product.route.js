@@ -1,23 +1,37 @@
-import express from "express";
+import express from "express"
 import {
-	createProduct,
-	deleteProduct,
-	getAllProducts,
-	getFeaturedProducts,
-	getProductsByCategory,
-	getRecommendedProducts,
-	toggleFeaturedProduct,
-} from "../controllers/product.controller.js";
-import { adminRoute, protectRoute } from "../middleware/auth.middleware.js";
+  getAllProducts,
+  getFeaturedProducts,
+  createProduct,
+  deleteProduct,
+  getRecommendedProducts,
+  getProductsByCategory,
+  toggleFeaturedProduct,
+  getProductById,
+  seamlessFaceReplacement,
+  advancedSeamlessReplacement,
+  updateProduct,
+} from "../controllers/product.controller.js"
+import { adminRoute, protectRoute } from "../middleware/auth.middleware.js"
 
-const router = express.Router();
+const router = express.Router()
 
-router.get("/", protectRoute, adminRoute, getAllProducts);
-router.get("/featured", getFeaturedProducts);
-router.get("/category/:category", getProductsByCategory);
-router.get("/recommendations", getRecommendedProducts);
-router.post("/", protectRoute, adminRoute, createProduct);
-router.patch("/:id", protectRoute, adminRoute, toggleFeaturedProduct);
-router.delete("/:id", protectRoute, adminRoute, deleteProduct);
+// Public routes
+router.get("/", getAllProducts)
+router.get("/featured", getFeaturedProducts)
+router.get("/category/:category", getProductsByCategory)
+router.get("/recommendations", getRecommendedProducts)
+router.get("/:id", getProductById)
 
-export default router;
+// Enhanced face replacement routes (no black background, shoulder matching)
+router.post("/seamless-face-replacement", seamlessFaceReplacement)
+router.post("/advanced-seamless-replacement", advancedSeamlessReplacement)
+
+// Protected admin routes
+router.post("/",   createProduct)
+router.put("/:id",  updateProduct)
+
+router.patch("/:id",   toggleFeaturedProduct)
+router.delete("/:id",   deleteProduct)
+
+export default router
