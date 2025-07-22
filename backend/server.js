@@ -25,6 +25,7 @@ const corsOptions = {
   origin: process.env.NODE_ENV === "production" 
     ? "https://cofinxy.store" // Allow only this domain in production
     : "http://localhost:3000",  // Allow localhost in development
+    :"http://localhost:5173"
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
   credentials: true, // Allow cookies and credentials
